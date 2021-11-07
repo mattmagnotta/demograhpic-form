@@ -30,7 +30,7 @@ const PersonalDetails = () => {
   const handleContinue = (e) => {
     e.preventDefault();
     // every time you click the next btn it updates the errors state object
-    // if there are errors it returns out of this, if there are no errors it
+    // if there are errors present it breaks out of this, if there are no errors it
     // sets step + 1
     const errors = personDetailsValidation(values);
     setErrors(errors);

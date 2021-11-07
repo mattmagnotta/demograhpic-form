@@ -1,7 +1,7 @@
 import React, { useState, createContext, useEffect } from 'react';
 // MUI
 import { makeStyles } from '@material-ui/core/styles';
-import { Button, FormControl } from '@material-ui/core';
+import { FormControl } from '@material-ui/core';
 //components
 import PersonalDetails from './PersonalDetails';
 import Address from './Addresss';
@@ -11,11 +11,11 @@ import ErrorPage from './Error';
 
 /* 
 This form is a multi-step form. There are 5 seperate components
-each representing a page. This form is controlled but two buttons 
-in the parent component (this file). When clicked they will update 
-the state variable, step. When step is updated this parent 
-component knows how to rerender based on that state in the switch 
-statement below.
+each representing a page (the last two are reserved for success and error pages).
+Each component controls its own buttons that way we can validate before moving 
+to the next section. The handle submit is done in this file but once you wire up 
+all the validation  it should probally be moved to the <Address/> component and 
+wired up to the submit button in there.
 
 Instead of using props to share data/functions between components, 
 useContext is cleaner solution. Each component inside of the 
@@ -51,13 +51,15 @@ const useStyles = makeStyles((theme) => {
     },
   };
 });
+
 // here is where we create the form context
 export const FormContext = createContext({});
 
 export const Form = () => {
   const classes = useStyles();
+
   // step 4 & 5 are reserved for the error and success page
-  // if step is set to either, it will render that page
+  // if step is set to either, it will render that page.
   const [step, setStep] = useState(1);
   const [programs, setPrograms] = useState([]);
   const [values, setValues] = useState({
@@ -67,7 +69,7 @@ export const Form = () => {
     second_last_name: '',
     suffix: 'No Suffix',
     birthday: '',
-    ssn: null,
+    ssn: null, // type <number>, issue with place holder displaying 0 instead of 'ssn'
     residence_address: '',
     res_apt: '',
     permanence: 'Permanent',
@@ -81,6 +83,7 @@ export const Form = () => {
   const logo =
     'https://wia.toj.mybluehost.me/disclosureswp/wp-content/uploads/2021/07/image-3.png';
 
+  // should be moved to <Address/> when address validation is created
   const sendPostValues = () => {
     const url = 'https://webhook.site/1fc1aed3-615d-434e-9717-1b2db79d536c';
 
@@ -99,19 +102,22 @@ export const Form = () => {
       });
   };
 
+  // this is the meat and potatoes of the values state object.
+  // Itt updates the state object with the name passed as an
+  // parameter, as a key, and the input value for that element as the value.
   const handleChange = (name) => (e) => {
     const target = name === 'shipping' ? !values.shipping : e.target.value;
 
     setValues({ ...values, [name]: target });
   };
 
+  // should be moved to <Address/> when address validation is created
   const handleSubmit = (e) => {
     e.preventDefault();
     sendPostValues(values);
     setStep(4);
   };
 
-  // refer useEffect docs
   useEffect(() => {
     // make api call to get dynamic programs here
 
