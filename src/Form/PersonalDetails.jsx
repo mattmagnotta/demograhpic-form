@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { FormContext } from './Form';
+import { personDetailsValidation } from './Validation';
 // MUI
 import { makeStyles } from '@material-ui/core/styles';
-import { MenuItem, TextField } from '@material-ui/core';
-
+import { Button, MenuItem, TextField } from '@material-ui/core';
 const useStyles = makeStyles(() => {
   return {
     inputItem: {
@@ -14,14 +14,26 @@ const useStyles = makeStyles(() => {
   };
 });
 
-const PersonalDetails = (props) => {
-  const { values, handleChange } = useContext(FormContext);
+const PersonalDetails = () => {
+  const { values, handleChange, step, setStep } = useContext(FormContext);
+  const [errors, setErrors] = useState({});
   const classes = useStyles();
 
+  const handleContinue = (e) => {
+    e.preventDefault();
+    // every time you click continue it checks for errors.
+    // if there are errors it just returns, if there are none
+    // sets step + 1
+    const errors = personDetailsValidation(values);
+    setErrors(errors);
+    if (Object.keys(errors).length > 0) return;
+    setStep(step + 1);
+  };
   return (
     <div>
       <TextField
         onChange={handleChange('first_name')}
+        error={errors.first_name}
         autoFocus
         required
         fullWidth
@@ -82,6 +94,7 @@ const PersonalDetails = (props) => {
 
       <TextField
         id="date"
+        InputLabelProps={{ shrink: true }}
         variant="outlined"
         label="Birthday"
         placeholder="Birthday"
@@ -89,7 +102,7 @@ const PersonalDetails = (props) => {
         // defaultValue="2017-05-24"
         className={classes.inputItem}
         onChange={handleChange('birthday')}
-        // value={values.birthday}
+        value={values.birthday}
       />
 
       <TextField
@@ -100,8 +113,22 @@ const PersonalDetails = (props) => {
         placeholder="Last 4 social"
         className={classes.inputItem}
         onChange={handleChange('ssn')}
-        values={values.ssn}
+        value={values.ssn}
       />
+
+      <div>
+        {/* <Button onClick={prevStep} className={classes.pagebutton}> */}
+        prev
+        {/* </Button> */}
+        <Button
+          className={classes.pagebutton}
+          onClick={(e) => handleContinue(e)}
+          // disabled={nextBtnDisabled}
+          // type="submit"
+        >
+          {step === 3 ? 'Submit' : 'Next'}
+        </Button>
+      </div>
     </div>
   );
 };

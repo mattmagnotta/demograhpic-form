@@ -72,11 +72,8 @@ export const Form = () => {
     last_name: '',
     second_last_name: '',
     suffix: 'No Suffix',
-    dob_month: 0,
-    dob_day: 0,
-    dob_year: 0,
     birthday: '',
-    ssn: 0,
+    ssn: null,
     residence_address: '',
     res_apt: '',
     permanence: 'Permanent',
@@ -92,6 +89,7 @@ export const Form = () => {
 
   const sendPostValues = () => {
     const url = 'https://webhook.site/1fc1aed3-615d-434e-9717-1b2db79d536c';
+
     fetch(url, {
       method: 'POST',
       body: JSON.stringify(values),
@@ -108,23 +106,23 @@ export const Form = () => {
   };
 
   // next button click, on page 3 turns into submit button
-  const nextStep = () => {
-    if (step < 3) {
-      setStep(step + 1);
-    } else if (step === 3) {
-      // *** submit your post request here ***
+  const nextStep = () => {};
+  // if (step < 3) {
+  //   setStep(step + 1);
+  // } else if (step === 3) {
+  //   // *** submit your post request here ***
 
-      // setStep(4);
-      sendPostValues();
-    }
-  };
+  //   // setStep(4);
+  //   sendPostValues();
+  // }
+  // };
 
   // prev button click
-  const prevStep = () => {
-    if (step > 1) {
-      setStep(step - 1);
-    }
-  };
+  // const prevStep = () => {
+  //   if (step > 1) {
+  //     setStep(step - 1);
+  //   }
+  // };
 
   // a change fxn to pass to each input that knows how to dynamically
   // update its respected key in the values object. Simply pass the the key
@@ -133,6 +131,13 @@ export const Form = () => {
     const target = name === 'shipping' ? !values.shipping : e.target.value;
 
     setValues({ ...values, [name]: target });
+    console.log(values);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    sendPostValues(values);
+    setStep(4);
   };
 
   const handleReset = () => {
@@ -184,9 +189,21 @@ export const Form = () => {
 
       {/* Main Form */}
       <FormContext.Provider
-        value={{ values, step, programs, setValues, setStep, handleChange }}
+        value={{
+          values,
+          step,
+          programs,
+          setValues,
+          setStep,
+          handleChange,
+          nextStep,
+        }}
       >
-        <FormControl component="form" autoComplete="on">
+        <FormControl
+          component="form"
+          autoComplete="on"
+          onSubmit={(e) => handleSubmit(e)}
+        >
           {
             {
               1: <Programs />,
@@ -196,20 +213,24 @@ export const Form = () => {
               5: <ErrorPage />,
             }[step]
           }
+          {/* page buttons
+          {step > 1 && step !== 4 && step !== 5 && (
+            <div>
+              <Button onClick={prevStep} className={classes.pagebutton}>
+                prev
+              </Button>
+              <Button
+                className={classes.pagebutton}
+                onClick={step === 3 ? '' : nextStep}
+                // disabled={nextBtnDisabled}
+                type="submit"
+              >
+                {step === 3 ? 'Submit' : 'Next'}
+              </Button>
+            </div>
+          )} */}
         </FormControl>
       </FormContext.Provider>
-
-      {/* page buttons */}
-      {step > 1 && step !== 4 && step !== 5 && (
-        <div>
-          <Button onClick={prevStep} className={classes.pagebutton}>
-            prev
-          </Button>
-          <Button className={classes.pagebutton} onClick={nextStep}>
-            {step === 3 ? 'Submit' : 'Next'}
-          </Button>
-        </div>
-      )}
 
       {/* reset button on error page */}
       {step === 5 && (

@@ -32,7 +32,7 @@ const PurpleCheckBox = withStyles({
   },
 })((props) => <Checkbox color="default" {...props} />);
 
-const Address = (props) => {
+const Address = () => {
   const { handleChange, values } = useContext(FormContext);
 
   const classes = useStyles();
@@ -64,7 +64,7 @@ const Address = (props) => {
         select
         id="outlined"
         variant="outlined"
-        // label="Suffix"
+        label="Suffix"
         placeholder="Permanent or temporary"
         className={classes.inputItem}
         defaultValue={'Permanent'}
@@ -79,7 +79,12 @@ const Address = (props) => {
       {/* TODO: figure out margin issue */}
       <FormGroup className={classes.FormGroup}>
         <FormControlLabel
-          control={<PurpleCheckBox onChange={handleChange('shipping')} />}
+          control={
+            <PurpleCheckBox
+              onChange={handleChange('shipping')}
+              checked={values.shipping}
+            />
+          }
           label="I have a different shipping address"
         />
       </FormGroup>

@@ -9,21 +9,23 @@ const useStyles = makeStyles((theme) => {
       flexDirection: 'column',
       alignItems: 'center',
     },
+
     button: {
       width: '80vw',
       maxWidth: '25rem',
       margin: '1.5rem 0',
+      padding: '3rem',
       height: '5rem',
       background: theme.palette.grey[400],
       color: '#000',
       fontSize: '.75rem',
 
       '&:hover': {
-        background: '#421D49',
+        background: theme.palette.grey[600],
+      },
 
-        [theme.breakpoints.up('sm')]: {
-          fontSize: '1rem',
-        },
+      [theme.breakpoints.up('sm')]: {
+        fontSize: '1rem',
       },
     },
 
