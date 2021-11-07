@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import {
   MenuItem,
   TextField,
@@ -6,6 +6,7 @@ import {
   FormControlLabel,
   Checkbox,
 } from '@material-ui/core';
+import { useEffect } from 'react';
 
 const useStyles = makeStyles(() => {
   return {
@@ -16,12 +17,25 @@ const useStyles = makeStyles(() => {
     },
     FormGroup: {
       marginLeft: '2.3rem',
+      marginRight: '0',
     },
   };
 });
 
-const Address = ({ handleChange }) => {
+const GreenCheckbox = withStyles({
+  root: {
+    color: '#613395',
+    '&$checked': {
+      color: '#613395',
+    },
+  },
+})((props) => <Checkbox color="default" {...props} />);
+
+const Address = (props) => {
+  const { handleChange, shipping } = props;
+
   const classes = useStyles();
+
   return (
     <div>
       <TextField
@@ -55,12 +69,38 @@ const Address = ({ handleChange }) => {
         <MenuItem>Temporary</MenuItem>
       </TextField>
 
+      {/* TODO: figure out margin issue */}
       <FormGroup className={classes.FormGroup}>
         <FormControlLabel
-          control={<Checkbox defaultChecked />}
+          control={<GreenCheckbox onChange={handleChange('shipping')} />}
           label="I have a different shipping address"
         />
       </FormGroup>
+
+      {shipping && (
+        <>
+          <TextField
+            className={classes.inputItem}
+            id="outlined"
+            variant="outlined"
+            placeholder="Shipping Address"
+          />
+
+          <TextField
+            className={classes.inputItem}
+            id="outlined"
+            variant="outlined"
+            placeholder="Apt, unit or lot #"
+          />
+
+          <TextField
+            className={classes.inputItem}
+            id="outlined"
+            variant="outlined"
+            placeholder="Zip"
+          />
+        </>
+      )}
     </div>
   );
 };

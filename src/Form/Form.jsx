@@ -98,7 +98,10 @@ export const Form = () => {
   };
 
   const handleChange = (name) => (e) => {
-    setValues({ ...values, [name]: e.target.value });
+    const target = name === 'shipping' ? !values.shipping : e.target.value;
+    console.log({ target });
+    setValues({ ...values, [name]: target });
+    console.log(values);
   };
 
   useEffect(() => {
@@ -113,7 +116,9 @@ export const Form = () => {
         {
           {
             1: <PersonalDetails handleChange={handleChange} />,
-            2: <Address handleChange={handleChange} />,
+            2: (
+              <Address handleChange={handleChange} shipping={values.shipping} />
+            ),
           }[step]
         }
       </FormControl>

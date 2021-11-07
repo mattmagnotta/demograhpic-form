@@ -9,6 +9,7 @@ export const FormContext = createContext({});
 const useStyles = makeStyles(() => {
   return {
     banner: {
+      // purple
       background: '#613395',
       width: '100%',
       height: '20rem',
