@@ -6,16 +6,20 @@ import { Button, FormControl } from '@material-ui/core';
 import PersonalDetails from './PersonalDetails';
 import Address from './Addresss';
 import Programs from './Programs';
-
+import Success from './Sucess';
 /* 
-This form is a multi-step form. There are three seperate components
-each representing a page. This form is controlled but two buttons in the parent
-component (this file). When clicked they will update the state variable, step.
-When step is updated it this parent component knows how to rerender based on that state
-*/
+This form is a multi-step form. There are 4 seperate components
+each representing a page. This form is controlled but two buttons 
+in the parent component (this file). When clicked they will update 
+the state variable, step. When step is updated this parent 
+component knows how to rerender based on that state in the switch 
+statement below.
 
-const img =
-  'https://wia.toj.mybluehost.me/disclosureswp/wp-content/uploads/2021/07/image-3.png';
+Instead of using props to share data/functions between components, 
+useContext is cleaner solution. Each component inside of the 
+FormContext.Provider is able to subscribe and use the values passed
+into the value object prop. Think of it as global state for the form component.
+*/
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -38,11 +42,13 @@ const useStyles = makeStyles((theme) => {
         top: '5rem',
       },
     },
+
     pagebutton: {
       background: theme.palette.grey[300],
       width: '10rem',
       margin: '1rem',
     },
+
     img: {
       margin: '2rem',
     },
@@ -111,6 +117,9 @@ export const Form = () => {
     ],
   });
 
+  const logo =
+    'https://wia.toj.mybluehost.me/disclosureswp/wp-content/uploads/2021/07/image-3.png';
+
   // next button click, on last page turns into submit button
   const nextStep = () => {
     if (step < 3) {
@@ -118,8 +127,11 @@ export const Form = () => {
     } else if (step === 3) {
       // submit your post request here
       console.log(values);
+      // then do a .then() and put this line in there.
+      setStep(4);
     }
   };
+
   // prev button click
   const prevStep = () => {
     if (step > 1) {
@@ -138,11 +150,16 @@ export const Form = () => {
 
   return (
     <div className={classes.formContainer}>
-      <img className={classes.img} src={img} width="200rem" />
+      <img
+        className={classes.img}
+        src={logo}
+        width="200rem"
+        alt="company logo"
+      />
 
       {/* Main Form */}
       <FormContext.Provider
-        value={{ values, setValues, step, setStep, handleChange }}
+        value={{ values, step, setValues, setStep, handleChange }}
       >
         <FormControl component="form" autoComplete="on">
           {
@@ -150,13 +167,14 @@ export const Form = () => {
               1: <Programs />,
               2: <PersonalDetails />,
               3: <Address />,
+              4: <Success />,
             }[step]
           }
         </FormControl>
       </FormContext.Provider>
 
       {/* Previous and next buttons */}
-      {step > 1 && (
+      {step > 1 && step != 4 && (
         <div>
           <Button onClick={prevStep} className={classes.pagebutton}>
             prev

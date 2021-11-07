@@ -4,6 +4,11 @@ import { Button, makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles(() => {
   return {
+    programsContainer: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+    },
     button: {
       width: '80vw',
       maxWidth: '25rem',
@@ -25,7 +30,7 @@ const useStyles = makeStyles(() => {
   };
 });
 const Programs = (props) => {
-  const { programs, setStep, setValues, values } = useContext(FormContext);
+  const { setStep, setValues, values } = useContext(FormContext);
 
   const classes = useStyles();
 
@@ -36,24 +41,22 @@ const Programs = (props) => {
   };
 
   return (
-    <div>
+    <div className={classes.programsContainer}>
       <span className={classes.title}>
-        Please select ONE of the goverment programs you are enrolled in below.
+        Please select one of the goverment programs you are enrolled in below.
       </span>
 
       {values.programs.map((program, index) => {
         return (
-          <div>
-            <Button
-              variant="contained"
-              key={index}
-              className={classes.button}
-              onClick={() => handleProgramClick(program)}
-              value={program.Code}
-            >
-              <span>{program.Description}</span>
-            </Button>
-          </div>
+          <Button
+            variant="contained"
+            key={index}
+            className={classes.button}
+            onClick={() => handleProgramClick(program)}
+            value={program.Code}
+          >
+            <span>{program.Description}</span>
+          </Button>
         );
       })}
     </div>

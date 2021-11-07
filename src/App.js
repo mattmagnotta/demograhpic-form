@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useState } from 'react';
 import './App.css';
 // mui
 import { makeStyles } from '@material-ui/core';
@@ -10,7 +10,6 @@ const useStyles = makeStyles(() => {
   return {
     banner: {
       // purple
-      background: 'rgb(72,0,154)',
       background:
         'linear-gradient(180deg, rgba(72,0,154,1) 0%, rgba(97,51,149,1) 100%)',
       width: '100%',
