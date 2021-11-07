@@ -54,7 +54,6 @@ export const Form = () => {
 
   const [step, setStep] = useState(1);
   const [values, setValues] = useState({
-    currentStep: 1, // Default is Step 1
     email: '',
     username: '',
     password: '',
@@ -66,6 +65,7 @@ export const Form = () => {
     dob_month: 0,
     dob_day: 0,
     dob_year: 0,
+    birthday: '',
     ssn: 0,
     residence_address: '',
     res_apt: '',
@@ -73,8 +73,8 @@ export const Form = () => {
     shipping: false,
     shipping_address: '',
     ship_apt: '',
-    ship_zipcode: 0,
-    state: '',
+    ship_zipcode: null, // type <number>, issue with place holder displaying 0 instead of 'zip'
+    // state: '',
     selected_plan: '',
     programs: [
       {
@@ -110,7 +110,7 @@ export const Form = () => {
     ],
   });
 
-  // next button click
+  // next button click, on last page turns into submit button
   const nextStep = () => {
     if (step < 3) {
       setStep(step + 1);
@@ -128,15 +128,12 @@ export const Form = () => {
 
   // a change fxn to pass to each input that knows how to dynamically
   // update its respected key in the values object. Simply pass the the key
-  // as the arguement that you want updated.
+  // as the arguement to the handle change that you want updated.
   const handleChange = (name) => (e) => {
-    // if checkbox for shipping address is clicked, flip the value of shipping
-    // otherwise set the value to the input value
     const target = name === 'shipping' ? !values.shipping : e.target.value;
 
-    // copies old values, and gets the key that is equal to the name
-    // and sets the value to input value
     setValues({ ...values, [name]: target });
+    console.log(values);
   };
 
   return (
@@ -156,9 +153,13 @@ export const Form = () => {
                 values={values}
               />
             ),
-            2: <PersonalDetails handleChange={handleChange} />,
+            2: <PersonalDetails handleChange={handleChange} values={values} />,
             3: (
-              <Address handleChange={handleChange} shipping={values.shipping} />
+              <Address
+                handleChange={handleChange}
+                shipping={values.shipping}
+                values={values}
+              />
             ),
           }[step]
         }

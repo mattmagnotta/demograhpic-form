@@ -18,12 +18,11 @@ const useStyles = makeStyles(() => {
 
     FormGroup: {
       marginLeft: '2.3rem',
-      marginRight: '0',
     },
   };
 });
 
-const GreenCheckbox = withStyles({
+const PurpleCheckBox = withStyles({
   root: {
     color: '#613395',
     '&$checked': {
@@ -33,14 +32,14 @@ const GreenCheckbox = withStyles({
 })((props) => <Checkbox color="default" {...props} />);
 
 const Address = (props) => {
-  const { handleChange, shipping } = props;
+  const { handleChange, shipping, values } = props;
 
   const classes = useStyles();
 
   return (
     <div>
       <TextField
-        onChange={handleChange('first_name')}
+        onChange={handleChange('residence_address')}
         required
         fullWidth
         id="outlined-required"
@@ -48,24 +47,28 @@ const Address = (props) => {
         label="Residence Address"
         placeholder="Enter a location"
         className={classes.inputItem}
+        value={values.residence_address}
       />
 
       <TextField
-        onChange={handleChange('first_name')}
+        onChange={handleChange('res_apt')}
         className={classes.inputItem}
         id="outlined"
         variant="outlined"
         placeholder="Apt, unit or lot #"
+        value={values.res_apt}
       />
 
       <TextField
         select
         id="outlined"
         variant="outlined"
-        label="Suffix"
-        placeholder="Suffix"
+        // label="Suffix"
+        placeholder="Permanent or temporary"
         className={classes.inputItem}
         defaultValue={'Permanent'}
+        onChange={handleChange('permanence')}
+        value={values.permanence}
       >
         {/* TODO: Default value */}
         <MenuItem value={'permanent'}>Permanent</MenuItem>
@@ -75,7 +78,7 @@ const Address = (props) => {
       {/* TODO: figure out margin issue */}
       <FormGroup className={classes.FormGroup}>
         <FormControlLabel
-          control={<GreenCheckbox onChange={handleChange('shipping')} />}
+          control={<PurpleCheckBox onChange={handleChange('shipping')} />}
           label="I have a different shipping address"
         />
       </FormGroup>
@@ -87,13 +90,17 @@ const Address = (props) => {
             id="outlined"
             variant="outlined"
             placeholder="Shipping Address"
+            onChange={handleChange('shipping_address')}
+            value={values.shipping_address}
           />
 
           <TextField
             className={classes.inputItem}
             id="outlined"
             variant="outlined"
-            placeholder="Apt, unit or lot #"
+            placeholder="Apt, unit, or lot #"
+            onChange={handleChange('ship_apt')}
+            value={values.ship_apt}
           />
 
           <TextField
@@ -101,6 +108,8 @@ const Address = (props) => {
             id="outlined"
             variant="outlined"
             placeholder="Zip"
+            onChange={handleChange('ship_zipcode')}
+            value={values.ship_zipcode}
           />
         </>
       )}
