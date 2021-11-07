@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { FormContext } from './Form';
 import { Button, makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles(() => {
@@ -24,7 +25,7 @@ const useStyles = makeStyles(() => {
   };
 });
 const Programs = (props) => {
-  const { programs, setStep, setValues, values } = props;
+  const { programs, setStep, setValues, values } = useContext(FormContext);
 
   const classes = useStyles();
 
@@ -40,7 +41,7 @@ const Programs = (props) => {
         Please select ONE of the goverment programs you are enrolled in below.
       </span>
 
-      {programs.map((program, index) => {
+      {values.programs.map((program, index) => {
         return (
           <div>
             <Button

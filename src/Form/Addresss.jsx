@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { FormContext } from './Form';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import {
   MenuItem,
@@ -32,7 +33,7 @@ const PurpleCheckBox = withStyles({
 })((props) => <Checkbox color="default" {...props} />);
 
 const Address = (props) => {
-  const { handleChange, shipping, values } = props;
+  const { handleChange, values } = useContext(FormContext);
 
   const classes = useStyles();
 
@@ -83,7 +84,7 @@ const Address = (props) => {
         />
       </FormGroup>
 
-      {shipping && (
+      {values.shipping && (
         <>
           <TextField
             className={classes.inputItem}
