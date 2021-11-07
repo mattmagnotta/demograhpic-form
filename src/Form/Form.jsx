@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, createContext } from 'react';
 // MUI
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, FormControl } from '@material-ui/core';
@@ -49,6 +49,8 @@ const useStyles = makeStyles((theme) => {
   };
 });
 
+export const FormContext = createContext({});
+
 export const Form = () => {
   const classes = useStyles();
 
@@ -74,7 +76,6 @@ export const Form = () => {
     shipping_address: '',
     ship_apt: '',
     ship_zipcode: null, // type <number>, issue with place holder displaying 0 instead of 'zip'
-    // state: '',
     selected_plan: '',
     programs: [
       {
@@ -133,7 +134,6 @@ export const Form = () => {
     const target = name === 'shipping' ? !values.shipping : e.target.value;
 
     setValues({ ...values, [name]: target });
-    console.log(values);
   };
 
   return (
@@ -141,40 +141,30 @@ export const Form = () => {
       <img className={classes.img} src={img} width="200rem" />
 
       {/* Main Form */}
-      <FormControl component="form" autoComplete="on">
-        {
+      <FormContext.Provider
+        value={{ values, setValues, step, setStep, handleChange }}
+      >
+        <FormControl component="form" autoComplete="on">
           {
-            1: (
-              <Programs
-                programs={values.programs}
-                step={step}
-                setStep={setStep}
-                setValues={setValues}
-                values={values}
-              />
-            ),
-            2: <PersonalDetails handleChange={handleChange} values={values} />,
-            3: (
-              <Address
-                handleChange={handleChange}
-                shipping={values.shipping}
-                values={values}
-              />
-            ),
-          }[step]
-        }
-      </FormControl>
+            {
+              1: <Programs />,
+              2: <PersonalDetails />,
+              3: <Address />,
+            }[step]
+          }
+        </FormControl>
+      </FormContext.Provider>
 
       {/* Previous and next buttons */}
       {step > 1 && (
-        <>
+        <div>
           <Button onClick={prevStep} className={classes.pagebutton}>
             prev
           </Button>
           <Button className={classes.pagebutton} onClick={nextStep}>
             {step === 3 ? 'Submit' : 'Next'}
           </Button>
-        </>
+        </div>
       )}
     </div>
   );

@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { FormContext } from './Form';
 // MUI
 import { makeStyles } from '@material-ui/core/styles';
 import { MenuItem, TextField } from '@material-ui/core';
@@ -14,7 +15,7 @@ const useStyles = makeStyles(() => {
 });
 
 const PersonalDetails = (props) => {
-  const { values, handleChange } = props;
+  const { values, handleChange } = useContext(FormContext);
   const classes = useStyles();
 
   return (
