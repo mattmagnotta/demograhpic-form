@@ -122,8 +122,6 @@ export const Form = () => {
   }, [values]);
   return (
     <div className={classes.formContainer}>
-      {/* <img src={img} /> */}
-
       <FormControl component="form" autoComplete="on">
         {
           {
@@ -146,17 +144,19 @@ export const Form = () => {
 
       <div>
         {step > 1 && (
-          <Button onClick={prevStep} className={classes.pagebutton}>
-            {' '}
-            prev{' '}
-          </Button>
+          <>
+            <Button onClick={prevStep} className={classes.pagebutton}>
+              {' '}
+              prev{' '}
+            </Button>
+            <Button
+              className={classes.pagebutton}
+              onClick={step === 3 ? handleSubmit : nextStep}
+            >
+              {step === 3 ? 'Submit' : 'Next'}
+            </Button>
+          </>
         )}
-        <Button
-          className={classes.pagebutton}
-          onClick={step === 3 ? handleSubmit : nextStep}
-        >
-          {step === 3 ? 'Submit' : 'Next'}
-        </Button>
       </div>
     </div>
   );

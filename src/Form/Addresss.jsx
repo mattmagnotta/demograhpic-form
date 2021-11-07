@@ -50,6 +50,7 @@ const Address = (props) => {
       />
 
       <TextField
+        onChange={handleChange('first_name')}
         className={classes.inputItem}
         id="outlined"
         variant="outlined"
