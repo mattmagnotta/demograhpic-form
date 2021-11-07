@@ -173,7 +173,7 @@ export const Form = () => {
         </FormControl>
       </FormContext.Provider>
 
-      {/* Previous and next buttons */}
+      {/* page buttons */}
       {step > 1 && step != 4 && (
         <div>
           <Button onClick={prevStep} className={classes.pagebutton}>
@@ -184,6 +184,7 @@ export const Form = () => {
           </Button>
         </div>
       )}
+      <p> Page {step} of 4 </p>
     </div>
   );
 };
