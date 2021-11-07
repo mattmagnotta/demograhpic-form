@@ -1,3 +1,4 @@
+import React from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import {
   MenuItem,
@@ -6,7 +7,6 @@ import {
   FormControlLabel,
   Checkbox,
 } from '@material-ui/core';
-import { useEffect } from 'react';
 
 const useStyles = makeStyles(() => {
   return {
@@ -15,6 +15,7 @@ const useStyles = makeStyles(() => {
       maxWidth: '30rem',
       margin: '1rem',
     },
+
     FormGroup: {
       marginLeft: '2.3rem',
       marginRight: '0',

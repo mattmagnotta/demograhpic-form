@@ -10,7 +10,9 @@ const useStyles = makeStyles(() => {
   return {
     banner: {
       // purple
-      background: '#613395',
+      background: 'rgb(72,0,154)',
+      background:
+        'linear-gradient(180deg, rgba(72,0,154,1) 0%, rgba(97,51,149,1) 100%)',
       width: '100%',
       height: '20rem',
       position: 'relative',

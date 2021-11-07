@@ -1,3 +1,4 @@
+import React from 'react';
 import { Button, makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles(() => {
@@ -12,9 +13,10 @@ const useStyles = makeStyles(() => {
 
       '&:hover': {
         // dark purple
-        background: '#290132',
+        background: '#421D49',
       },
     },
+
     title: {
       fontSize: '1.2rem',
       fontWeight: 600,
@@ -28,6 +30,7 @@ const Programs = (props) => {
 
   const handleProgramClick = (program) => {
     setStep(2);
+    // when program is clicked update the selected plan in the state to the program code
     setValues({ ...values, selected_plan: program.Code });
   };
 
