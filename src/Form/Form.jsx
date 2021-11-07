@@ -45,12 +45,6 @@ const useStyles = makeStyles((theme) => {
       },
     },
 
-    pagebutton: {
-      background: theme.palette.grey[300],
-      width: '10rem',
-      margin: '1rem',
-    },
-
     img: {
       margin: '2rem',
       width: '15rem',
@@ -105,43 +99,16 @@ export const Form = () => {
       });
   };
 
-  // next button click, on page 3 turns into submit button
-  const nextStep = () => {};
-  // if (step < 3) {
-  //   setStep(step + 1);
-  // } else if (step === 3) {
-  //   // *** submit your post request here ***
-
-  //   // setStep(4);
-  //   sendPostValues();
-  // }
-  // };
-
-  // prev button click
-  // const prevStep = () => {
-  //   if (step > 1) {
-  //     setStep(step - 1);
-  //   }
-  // };
-
-  // a change fxn to pass to each input that knows how to dynamically
-  // update its respected key in the values object. Simply pass the the key
-  // as the arguement to the handle change that you want updated.
   const handleChange = (name) => (e) => {
     const target = name === 'shipping' ? !values.shipping : e.target.value;
 
     setValues({ ...values, [name]: target });
-    console.log(values);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     sendPostValues(values);
     setStep(4);
-  };
-
-  const handleReset = () => {
-    setStep(1);
   };
 
   // refer useEffect docs
@@ -196,7 +163,6 @@ export const Form = () => {
           setValues,
           setStep,
           handleChange,
-          nextStep,
         }}
       >
         <FormControl
@@ -213,31 +179,8 @@ export const Form = () => {
               5: <ErrorPage />,
             }[step]
           }
-          {/* page buttons
-          {step > 1 && step !== 4 && step !== 5 && (
-            <div>
-              <Button onClick={prevStep} className={classes.pagebutton}>
-                prev
-              </Button>
-              <Button
-                className={classes.pagebutton}
-                onClick={step === 3 ? '' : nextStep}
-                // disabled={nextBtnDisabled}
-                type="submit"
-              >
-                {step === 3 ? 'Submit' : 'Next'}
-              </Button>
-            </div>
-          )} */}
         </FormControl>
       </FormContext.Provider>
-
-      {/* reset button on error page */}
-      {step === 5 && (
-        <Button className={classes.pagebutton} onClick={handleReset}>
-          Try again
-        </Button>
-      )}
 
       {/* pagination */}
       {step !== 4 && step !== 5 && <p> Page {step} of 3 </p>}

@@ -38,8 +38,6 @@ const useStyles = makeStyles((theme) => {
 
 const Programs = () => {
   const { setStep, setValues, values, programs } = useContext(FormContext);
-  const theme = useTheme();
-  console.log({ theme });
   const classes = useStyles();
 
   const handleProgramClick = (program) => {

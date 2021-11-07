@@ -7,9 +7,10 @@ import {
   FormGroup,
   FormControlLabel,
   Checkbox,
+  Button,
 } from '@material-ui/core';
 
-const useStyles = makeStyles(() => {
+const useStyles = makeStyles((theme) => {
   return {
     inputItem: {
       width: '90%',
@@ -19,6 +20,12 @@ const useStyles = makeStyles(() => {
 
     FormGroup: {
       marginLeft: '2.3rem',
+    },
+
+    pagebutton: {
+      background: theme.palette.grey[300],
+      width: '10rem',
+      margin: '1rem',
     },
   };
 });
@@ -33,9 +40,33 @@ const PurpleCheckBox = withStyles({
 })((props) => <Checkbox color="default" {...props} />);
 
 const Address = () => {
-  const { handleChange, values } = useContext(FormContext);
+  const { handleChange, values, step, setStep } = useContext(FormContext);
 
   const classes = useStyles();
+
+  const prevStep = (e) => {
+    e.preventDefault();
+
+    setStep(step - 1);
+  };
+
+  // const sendPostValues = () => {
+  //   const url = 'https://webhook.site/1fc1aed3-615d-434e-9717-1b2db79d536c';
+
+  //   fetch(url, {
+  //     method: 'POST',
+  //     body: JSON.stringify(values),
+  //   })
+  //     .then(function (data) {
+  //       //step 4 shows success page
+  //       setStep(4);
+  //       console.log('Request success: ', data);
+  //     })
+  //     .catch(function (error) {
+  //       // step 5 shows error page
+  //       setStep(5);
+  //     });
+  // };
 
   return (
     <div>
@@ -119,6 +150,21 @@ const Address = () => {
           />
         </>
       )}
+
+      {/* Buttons */}
+      <div>
+        <Button onClick={prevStep} className={classes.pagebutton}>
+          prev
+        </Button>
+
+        <Button
+          className={classes.pagebutton}
+          // onClick={() => sendPostValues(values)}
+          type="submit"
+        >
+          Submit
+        </Button>
+      </div>
     </div>
   );
 };

@@ -4,11 +4,18 @@ import { personDetailsValidation } from './Validation';
 // MUI
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, MenuItem, TextField } from '@material-ui/core';
-const useStyles = makeStyles(() => {
+
+const useStyles = makeStyles((theme) => {
   return {
     inputItem: {
       width: '90%',
       maxWidth: '30rem',
+      margin: '1rem',
+    },
+
+    pagebutton: {
+      background: theme.palette.grey[300],
+      width: '10rem',
       margin: '1rem',
     },
   };
@@ -16,19 +23,29 @@ const useStyles = makeStyles(() => {
 
 const PersonalDetails = () => {
   const { values, handleChange, step, setStep } = useContext(FormContext);
-  const [errors, setErrors] = useState({});
   const classes = useStyles();
+
+  const [errors, setErrors] = useState({});
 
   const handleContinue = (e) => {
     e.preventDefault();
-    // every time you click continue it checks for errors.
-    // if there are errors it just returns, if there are none
+    // every time you click the next btn it updates the errors state object
+    // if there are errors it returns out of this, if there are no errors it
     // sets step + 1
     const errors = personDetailsValidation(values);
     setErrors(errors);
+
     if (Object.keys(errors).length > 0) return;
+
     setStep(step + 1);
   };
+
+  const prevStep = (e) => {
+    e.preventDefault();
+
+    setStep(step - 1);
+  };
+
   return (
     <div>
       <TextField
@@ -116,17 +133,16 @@ const PersonalDetails = () => {
         value={values.ssn}
       />
 
+      {/* buttons */}
       <div>
-        {/* <Button onClick={prevStep} className={classes.pagebutton}> */}
-        prev
-        {/* </Button> */}
+        <Button onClick={prevStep} className={classes.pagebutton}>
+          prev
+        </Button>
         <Button
           className={classes.pagebutton}
           onClick={(e) => handleContinue(e)}
-          // disabled={nextBtnDisabled}
-          // type="submit"
         >
-          {step === 3 ? 'Submit' : 'Next'}
+          Next
         </Button>
       </div>
     </div>
