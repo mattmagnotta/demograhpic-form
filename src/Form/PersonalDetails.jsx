@@ -61,7 +61,7 @@ const PersonalDetails = ({ handleChange }) => {
         placeholder="Suffix"
         className={classes.inputItem}
       >
-        <MenuItem>Jr</MenuItem>
+        <MenuItem value="Jr">Jr</MenuItem>
         <MenuItem>Sr</MenuItem>
         <MenuItem>Jr</MenuItem>
         <MenuItem>I</MenuItem>

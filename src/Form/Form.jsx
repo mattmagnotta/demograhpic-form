@@ -8,6 +8,7 @@ import useInputValue from 'use-input-value';
 //components
 import PersonalDetails from './PersonalDetails';
 import Address from './Addresss';
+import Programs from './Programs';
 
 const img =
   'https://wia.toj.mybluehost.me/disclosureswp/wp-content/uploads/2021/07/image-3.png';
@@ -24,6 +25,11 @@ const useStyles = makeStyles((theme) => {
       background: '#fff',
       borderRadius: '15px',
       border: `solid 1px ${theme.palette.grey[400]}`,
+    },
+    pagebutton: {
+      background: theme.palette.grey[300],
+      width: '10rem',
+      margin: '1rem',
     },
   };
 });
@@ -56,30 +62,36 @@ export const Form = () => {
     state: '',
     selected_plan: '',
     programs: [
-      '135PEBB',
-      'MCAIDEBB',
-      'SLEBB',
-      'FPHAEBB',
-      'SNAPPEBB',
-      'SSIEBB',
-      'VSDPEBB',
-      'FPGEBB',
-      'SLOIEBB',
-      'LIPEBB',
-      'SP',
-    ],
-    program_names: [
-      '135% of Federal Poverty Guidelines',
-      'Medicaid',
-      'Free and Reduced Price School Lunch Program',
-      'Federal Public Housing Assistance (FPHA)',
-      'Supplemental Nutrition Assistance Program',
-      'Supplemental Security Income (SSI)',
-      'Veterans Pension and Survivors Benefit Programs',
-      'Federal Pell Grant',
-      'Substantial loss of income',
-      'Existing low-income program/COVID-19 program',
-      'Super Poor',
+      {
+        Code: '135PEBB',
+        Description: '135% of Federal Poverty Guidelines',
+      },
+      {
+        Code: 'MCAIDEBB',
+        Description: 'Medicaid',
+      },
+      {
+        Code: 'SLEBB',
+        Description:
+          'Free and Reduced Price School Lunch Program or School Breakfast Program for EBB only',
+      },
+      {
+        Code: 'FPHAEBB',
+        Description: 'Federal Public Housing Assistance (FPHA)',
+      },
+      {
+        Code: 'SNAPEBB',
+        Description:
+          'Supplemental Nutrition Assistance Program (SNAP/Food Stamps)',
+      },
+      {
+        Code: 'SSIEBB',
+        Description: 'Supplemental Security Income (SSI)',
+      },
+      {
+        Code: 'VSDPEBB',
+        Description: 'Veterans Pension and Survivors Benefit Programs',
+      },
     ],
   });
 
@@ -99,33 +111,55 @@ export const Form = () => {
 
   const handleChange = (name) => (e) => {
     const target = name === 'shipping' ? !values.shipping : e.target.value;
-    console.log({ target });
+
     setValues({ ...values, [name]: target });
+  };
+
+  const handleSubmit = (e) => {
+    // do you post request here
     console.log(values);
   };
 
   useEffect(() => {
-    console.log(values.first_name);
-  }, [values.first_name]);
-
+    console.log(values);
+  }, [values]);
   return (
     <div className={classes.formContainer}>
-      <img src={img} />
+      {/* <img src={img} /> */}
 
       <FormControl component="form" autoComplete="on">
         {
           {
-            1: <PersonalDetails handleChange={handleChange} />,
-            2: (
-              <Address handleChange={handleChange} shipping={values.shipping} />
+            1: (
+              <Programs
+                programs={values.programs}
+                step={step}
+                setStep={setStep}
+                setValues={setValues}
+                values={values}
+              />
             ),
+            2: <PersonalDetails handleChange={handleChange} />,
+            3: (
+              <Address handleChange={handleChange} shipping={values.shipping} />
+            ), // prettier is messing up this formatting, just know I know. MM
           }[step]
         }
       </FormControl>
 
       <div>
-        <Button onClick={prevStep}> prev </Button>
-        <Button onClick={nextStep}> next </Button>
+        {step > 1 && (
+          <Button onClick={prevStep} className={classes.pagebutton}>
+            {' '}
+            prev{' '}
+          </Button>
+        )}
+        <Button
+          className={classes.pagebutton}
+          onClick={step === 3 ? handleSubmit : nextStep}
+        >
+          {step === 3 ? 'Submit' : 'Next'}
+        </Button>
       </div>
     </div>
   );

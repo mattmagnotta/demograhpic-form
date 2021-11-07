@@ -40,7 +40,6 @@ const Address = (props) => {
     <div>
       <TextField
         onChange={handleChange('first_name')}
-        autoFocus
         required
         fullWidth
         id="outlined-required"
@@ -64,8 +63,10 @@ const Address = (props) => {
         label="Suffix"
         placeholder="Suffix"
         className={classes.inputItem}
+        defaultValue={'Permanent'}
       >
-        <MenuItem>Permanent</MenuItem>
+        {/* TODO: Default value */}
+        <MenuItem value={'permanent'}>Permanent</MenuItem>
         <MenuItem>Temporary</MenuItem>
       </TextField>
 
