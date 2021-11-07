@@ -2,9 +2,6 @@ import React, { useEffect, useState } from 'react';
 // MUI
 import { makeStyles } from '@material-ui/core/styles';
 import { MenuItem, TextField, Button, FormControl } from '@material-ui/core';
-// utils
-// import classNames from 'classnames';
-import useInputValue from 'use-input-value';
 //components
 import PersonalDetails from './PersonalDetails';
 import Address from './Addresss';
