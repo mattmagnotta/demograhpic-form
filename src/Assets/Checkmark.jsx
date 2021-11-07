@@ -2,7 +2,7 @@ import React from 'react';
 
 export const CheckmarkSvg = () => {
   return (
-    // animation handled in app.css
+    // animation and color are handled in app.css
     <svg
       id="Capa_1"
       data-name="Capa 1"

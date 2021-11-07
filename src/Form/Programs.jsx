@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { FormContext } from './Form';
-import { Button, makeStyles } from '@material-ui/core';
+import { Button, makeStyles, useTheme } from '@material-ui/core';
 
-const useStyles = makeStyles(() => {
+const useStyles = makeStyles((theme) => {
   return {
     programsContainer: {
       display: 'flex',
@@ -14,12 +14,16 @@ const useStyles = makeStyles(() => {
       maxWidth: '25rem',
       margin: '1.5rem 0',
       height: '5rem',
-      background: '#613395',
-      color: '#fff',
+      background: theme.palette.grey[400],
+      color: '#000',
+      fontSize: '.75rem',
 
       '&:hover': {
-        // dark purple
         background: '#421D49',
+
+        [theme.breakpoints.up('sm')]: {
+          fontSize: '1rem',
+        },
       },
     },
 
@@ -29,9 +33,11 @@ const useStyles = makeStyles(() => {
     },
   };
 });
-const Programs = (props) => {
-  const { setStep, setValues, values } = useContext(FormContext);
 
+const Programs = () => {
+  const { setStep, setValues, values, programs } = useContext(FormContext);
+  const theme = useTheme();
+  console.log({ theme });
   const classes = useStyles();
 
   const handleProgramClick = (program) => {
@@ -40,13 +46,15 @@ const Programs = (props) => {
     setValues({ ...values, selected_plan: program.Code });
   };
 
+  if (programs.length < 1) return null;
+
   return (
     <div className={classes.programsContainer}>
       <span className={classes.title}>
         Please select one of the goverment programs you are enrolled in below.
       </span>
 
-      {values.programs.map((program, index) => {
+      {programs.map((program, index) => {
         return (
           <Button
             variant="contained"

@@ -6,12 +6,10 @@ import { makeStyles } from '@material-ui/core';
 import Form from './Form/Form';
 export const FormContext = createContext({});
 
-const useStyles = makeStyles(() => {
+const useStyles = makeStyles((theme) => {
   return {
     banner: {
-      // purple
-      background:
-        'linear-gradient(180deg, rgba(72,0,154,1) 0%, rgba(97,51,149,1) 100%)',
+      background: theme.palette.grey[400],
       width: '100%',
       height: '20rem',
       position: 'relative',

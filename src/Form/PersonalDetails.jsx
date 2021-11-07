@@ -73,12 +73,11 @@ const PersonalDetails = (props) => {
         value={values.suffix}
       >
         <MenuItem value="Jr">Jr</MenuItem>
-        <MenuItem>Sr</MenuItem>
-        <MenuItem>Jr</MenuItem>
-        <MenuItem>I</MenuItem>
-        <MenuItem>II</MenuItem>
-        <MenuItem>III</MenuItem>
-        <MenuItem>IV</MenuItem>
+        <MenuItem value="Sr">Sr</MenuItem>
+        <MenuItem value="I">I</MenuItem>
+        <MenuItem value="III">II</MenuItem>
+        <MenuItem value="III">III</MenuItem>
+        <MenuItem value="IV">IV</MenuItem>
       </TextField>
 
       <TextField
