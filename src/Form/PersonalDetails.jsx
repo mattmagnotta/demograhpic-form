@@ -49,58 +49,63 @@ const PersonalDetails = () => {
   return (
     <div>
       <TextField
+        label="First Name"
+        // placeholder="First Name"
         onChange={handleChange('first_name')}
         error={errors.first_name}
-        autoFocus
+        // autoFocus
         required
         fullWidth
         id="outlined-required"
         variant="outlined"
-        label="First Name"
-        placeholder="First Name"
         className={classes.inputItem}
         value={values.first_name}
       />
 
       <TextField
+        label="Middle Name"
+        // placeholder="Middle Name"
+        onChange={handleChange('middle_name')}
         className={classes.inputItem}
         id="outlined"
         variant="outlined"
-        placeholder="Middle Name"
-        onChange={handleChange('middle_name')}
         value={values.middle_name}
       />
 
       <TextField
+        label="Last Name"
+        // placeholder="Last Name"
+        onChange={handleChange('last_name')}
+        error={errors.last_name}
         required
+        fullWidth
         id="outlined-required"
         variant="outlined"
-        label="Last name"
-        placeholder="Last Name"
         className={classes.inputItem}
-        onChange={handleChange('last_name')}
         value={values.last_name}
       />
 
       <TextField
+        label="Second Last Name"
+        // placeholder="Second Last Name"
+        onChange={handleChange('second_last_name')}
         id="outlined"
         variant="outlined"
-        placeholder="Second Last Name"
         className={classes.inputItem}
-        onChange={handleChange('second_last_name')}
         value={values.second_last_name}
       />
 
       <TextField
+        label="Suffix"
+        // placeholder="Suffix"
+        onChange={handleChange('suffix')}
         select
         id="outlined"
         variant="outlined"
-        label="Suffix"
-        placeholder="Suffix"
         className={classes.inputItem}
-        onChange={handleChange('suffix')}
         value={values.suffix}
       >
+        <MenuItem value="No Suffix">No Suffix</MenuItem>
         <MenuItem value="Jr">Jr</MenuItem>
         <MenuItem value="Sr">Sr</MenuItem>
         <MenuItem value="I">I</MenuItem>
@@ -110,26 +115,28 @@ const PersonalDetails = () => {
       </TextField>
 
       <TextField
+        label="Birthday"
+        // placeholder="Birthday"
+        onChange={handleChange('birthday')}
+        error={errors.birthday}
+        required
         id="date"
         InputLabelProps={{ shrink: true }}
         variant="outlined"
-        label="Birthday"
-        placeholder="Birthday"
         type="date"
-        // defaultValue="2017-05-24"
         className={classes.inputItem}
-        onChange={handleChange('birthday')}
         value={values.birthday}
       />
 
       <TextField
+        label="Last 4 of Social"
+        placeholder="&times;&times;&times;&times;"
+        onChange={handleChange('ssn')}
+        error={errors.ssn}
         required
         id="outlined-required"
         variant="outlined"
-        label="Last 4 social"
-        placeholder="Last 4 social"
         className={classes.inputItem}
-        onChange={handleChange('ssn')}
         value={values.ssn}
       />
 

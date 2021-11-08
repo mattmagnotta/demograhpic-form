@@ -103,7 +103,7 @@ export const Form = () => {
   };
 
   // this is the meat and potatoes of the values state object.
-  // Itt updates the state object with the name passed as an
+  // It updates the state object with the name passed as an
   // parameter, as a key, and the input value for that element as the value.
   const handleChange = (name) => (e) => {
     const target = name === 'shipping' ? !values.shipping : e.target.value;
@@ -133,25 +133,23 @@ export const Form = () => {
       },
       {
         Code: 'SLEBB',
-        Description:
-          'Free and Reduced Price School Lunch Program or School Breakfast Program for EBB only',
+        Description: 'Free and Reduced Price School Lunch Program',
       },
       {
         Code: 'FPHAEBB',
-        Description: 'Federal Public Housing Assistance (FPHA)',
+        Description: 'Federal Public Housing Assistance',
       },
       {
         Code: 'SNAPEBB',
-        Description:
-          'Supplemental Nutrition Assistance Program (SNAP/Food Stamps)',
+        Description: 'Supplemental Nutrition Assistance Program',
       },
       {
         Code: 'SSIEBB',
-        Description: 'Supplemental Security Income (SSI)',
+        Description: 'Supplemental Security Income',
       },
       {
         Code: 'VSDPEBB',
-        Description: 'Veterans Pension and Survivors Benefit Programs',
+        Description: 'Veterans Pension and Survivors Benefit',
       },
     ]);
   }, []);
@@ -173,7 +171,7 @@ export const Form = () => {
       >
         <FormControl
           component="form"
-          autoComplete="on"
+          autoComplete="off"
           onSubmit={(e) => handleSubmit(e)}
         >
           {

@@ -7,7 +7,8 @@ import Form from './Form/Form';
 const useStyles = makeStyles((theme) => {
   return {
     banner: {
-      background: theme.palette.grey[400],
+      background: '#603394',
+      // background: theme.palette.grey[400],
       width: '100%',
       height: '20rem',
       position: 'relative',
