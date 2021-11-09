@@ -12,9 +12,9 @@ const useStyles = makeStyles((theme) => {
 
     button: {
       width: '80vw',
-      maxWidth: '25rem',
+      maxWidth: '50rem',
       margin: '1.5rem 0',
-      padding: '3rem',
+      padding: '1rem',
       height: '5rem',
       background: theme.palette.grey[400],
       color: '#000',
@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme) => {
 
       [theme.breakpoints.up('sm')]: {
         fontSize: '1rem',
+        padding: '3rem',
       },
     },
 

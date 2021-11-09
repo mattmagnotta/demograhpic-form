@@ -4,21 +4,21 @@ import { makeStyles } from '@material-ui/core/styles';
 import { FormControl } from '@material-ui/core';
 //components
 import PersonalDetails from './PersonalDetails';
-import Address from './Addresss';
+import Address from './Address';
 import Programs from './Programs';
-import Success from './Sucess';
+import Success from './Success';
 import ErrorPage from './Error';
 
-/* 
-This form is a multi-step form. There are 5 seperate components
+/*
+This form is a multi-step form. There are 5 separate components
 each representing a page (the last two are reserved for success and error pages).
-Each component controls its own buttons that way we can validate before moving 
-to the next section. The handle submit is done in this file but once you wire up 
-all the validation  it should probally be moved to the <Address/> component and 
+Each component controls its own buttons that way we can validate before moving
+to the next section. The handle submit is done in this file but once you wire up
+all the validation  it should probably be moved to the <Address/> component and
 wired up to the submit button in there.
 
-Instead of using props to share data/functions between components, 
-useContext is cleaner solution. Each component inside of the 
+Instead of using props to share data/functions between components,
+useContext is cleaner solution. Each component inside of the
 FormContext.Provider is able to subscribe and use the values passed
 into the value object prop. Think of it as global state for the form component.
 */
@@ -156,7 +156,7 @@ export const Form = () => {
 
   return (
     <div className={classes.formContainer}>
-      <img className={classes.img} src={logo} alt="company logo" />
+      <img className={classes.img} src={logo} alt="Company Logo" />
 
       {/* Main Form */}
       <FormContext.Provider

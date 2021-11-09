@@ -23,7 +23,7 @@
     "eject": "react-scripts eject",
     "deploy": "aws s3 sync build/ s3://demographic-form-mui"
   },
-  "proxy": "https://lifeline-preprod.cgmllc.net/",
+  "proxy": "http://localhost",
   "eslintConfig": {
     "extends": [
       "react-app",

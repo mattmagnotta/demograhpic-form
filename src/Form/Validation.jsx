@@ -9,7 +9,7 @@ export const personDetailsValidation = (values) => {
   if (values.birthday === '') {
     errors.birthday = 'Birthday is required';
   }
-  if (values.ssn === null) {
+  if (values.ssn === '') {
     errors.ssn = 'Last 4 of social is required';
   }
   return errors;
