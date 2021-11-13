@@ -1,5 +1,7 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { FormContext } from './Form';
+import { addressValidation } from './Validation';
+
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import {
   MenuItem,
@@ -41,6 +43,7 @@ const PurpleCheckBox = withStyles({
 
 const Address = () => {
   const { handleChange, values, step, setStep } = useContext(FormContext);
+  const [errors, setErrors] = useState({});
 
   const classes = useStyles();
 
@@ -48,6 +51,15 @@ const Address = () => {
     e.preventDefault();
 
     setStep(step - 1);
+  };
+
+  const handleSubmit = (e) => {
+    const errors = addressValidation(values);
+    setErrors(errors);
+
+    if (Object.keys(errors).length > 0) return;
+
+    alert(values);
   };
 
   // const sendPostValues = () => {
@@ -72,7 +84,7 @@ const Address = () => {
     <div>
       <TextField
         onChange={handleChange('residence_address')}
-        required
+        // required
         fullWidth
         id="outlined-required"
         variant="outlined"

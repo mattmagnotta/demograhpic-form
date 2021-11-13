@@ -36,7 +36,6 @@ const PersonalDetails = () => {
     setErrors(errors);
 
     if (Object.keys(errors).length > 0) return;
-
     setStep(step + 1);
   };
 
@@ -48,110 +47,112 @@ const PersonalDetails = () => {
 
   return (
     <div>
-      <TextField
-        label="First Name"
-        // placeholder="First Name"
-        onChange={handleChange('first_name')}
-        error={errors.first_name}
-        // autoFocus
-        required
-        fullWidth
-        id="outlined-required"
-        variant="outlined"
-        className={classes.inputItem}
-        value={values.first_name}
-      />
+      <form action="">
+        <TextField
+          label="First Name"
+          // placeholder="First Name"
+          onChange={handleChange('first_name')}
+          error={errors.first_name}
+          // autoFocus
+          required
+          fullWidth
+          id="outlined-required"
+          variant="outlined"
+          className={classes.inputItem}
+          value={values.first_name}
+        />
 
-      <TextField
-        label="Middle Name"
-        // placeholder="Middle Name"
-        onChange={handleChange('middle_name')}
-        className={classes.inputItem}
-        id="outlined"
-        variant="outlined"
-        value={values.middle_name}
-      />
+        <TextField
+          label="Middle Name"
+          // placeholder="Middle Name"
+          onChange={handleChange('middle_name')}
+          className={classes.inputItem}
+          id="outlined"
+          variant="outlined"
+          value={values.middle_name}
+        />
 
-      <TextField
-        label="Last Name"
-        // placeholder="Last Name"
-        onChange={handleChange('last_name')}
-        error={errors.last_name}
-        required
-        fullWidth
-        id="outlined-required"
-        variant="outlined"
-        className={classes.inputItem}
-        value={values.last_name}
-      />
+        <TextField
+          label="Last Name"
+          // placeholder="Last Name"
+          onChange={handleChange('last_name')}
+          error={errors.last_name}
+          required
+          fullWidth
+          id="outlined-required"
+          variant="outlined"
+          className={classes.inputItem}
+          value={values.last_name}
+        />
 
-      <TextField
-        label="Second Last Name"
-        // placeholder="Second Last Name"
-        onChange={handleChange('second_last_name')}
-        id="outlined"
-        variant="outlined"
-        className={classes.inputItem}
-        value={values.second_last_name}
-      />
+        <TextField
+          label="Second Last Name"
+          // placeholder="Second Last Name"
+          onChange={handleChange('second_last_name')}
+          id="outlined"
+          variant="outlined"
+          className={classes.inputItem}
+          value={values.second_last_name}
+        />
 
-      <TextField
-        label="Suffix"
-        // placeholder="Suffix"
-        onChange={handleChange('suffix')}
-        select
-        id="outlined"
-        variant="outlined"
-        className={classes.inputItem}
-        value={values.suffix}
-      >
-        <MenuItem value="No Suffix">No Suffix</MenuItem>
-        <MenuItem value="Jr">Jr</MenuItem>
-        <MenuItem value="Sr">Sr</MenuItem>
-        <MenuItem value="I">I</MenuItem>
-        <MenuItem value="III">II</MenuItem>
-        <MenuItem value="III">III</MenuItem>
-        <MenuItem value="IV">IV</MenuItem>
-      </TextField>
-
-      <TextField
-        label="Birthday"
-        // placeholder="Birthday"
-        onChange={handleChange('birthday')}
-        error={errors.birthday}
-        required
-        id="date"
-        InputLabelProps={{ shrink: true }}
-        variant="outlined"
-        type="date"
-        className={classes.inputItem}
-        value={values.birthday}
-      />
-
-      <TextField
-        label="Last 4 of Social"
-        placeholder="&times;&times;&times;&times;"
-        onChange={handleChange('ssn')}
-        error={errors.ssn}
-        required
-        id="outlined-required"
-        variant="outlined"
-        className={classes.inputItem}
-        value={values.ssn}
-      />
-
-      {/* buttons */}
-      <div>
-        <Button onClick={prevStep} className={classes.pagebutton}>
-          prev
-        </Button>
-        <Button
-          className={classes.pagebutton}
-          onClick={(e) => handleContinue(e)}
+        <TextField
+          label="Suffix"
+          // placeholder="Suffix"
+          onChange={handleChange('suffix')}
+          select
+          id="outlined"
+          variant="outlined"
+          className={classes.inputItem}
+          value={values.suffix}
         >
-          Next
-        </Button>
-      </div>
+          <MenuItem value="No Suffix">No Suffix</MenuItem>
+          <MenuItem value="Jr">Jr</MenuItem>
+          <MenuItem value="Sr">Sr</MenuItem>
+          <MenuItem value="I">I</MenuItem>
+          <MenuItem value="III">II</MenuItem>
+          <MenuItem value="III">III</MenuItem>
+          <MenuItem value="IV">IV</MenuItem>
+        </TextField>
+
+        <TextField
+          label="Birthday"
+          onChange={handleChange('birthday')}
+          error={errors.birthday}
+          required
+          id="date"
+          InputLabelProps={{ shrink: true }}
+          variant="outlined"
+          type="date"
+          className={classes.inputItem}
+          value={values.birthday}
+        />
+
+        <TextField
+          label="Last 4 of Social"
+          placeholder="&times;&times;&times;&times;"
+          onChange={handleChange('ssn')}
+          error={errors.ssn}
+          required
+          id="outlined-required"
+          variant="outlined"
+          className={classes.inputItem}
+          value={values.ssn}
+        />
+
+        {/* buttons */}
+        <div>
+          <Button onClick={prevStep} className={classes.pagebutton}>
+            prev
+          </Button>
+
+          <Button
+            className={classes.pagebutton}
+            onClick={(e) => handleContinue(e)}
+          >
+            Next
+          </Button>
+        </div>
+      </form>
     </div>
   );
 };

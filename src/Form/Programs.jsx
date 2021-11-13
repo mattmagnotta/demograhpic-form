@@ -15,9 +15,9 @@ const useStyles = makeStyles((theme) => {
       maxWidth: '50rem',
       margin: '1.5rem 0',
       padding: '1rem',
-      height: '5rem',
+      height: '1rem',
       background: theme.palette.grey[400],
-      color: '#000',
+      // color: '#000',
       fontSize: '.75rem',
 
       '&:hover': {
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => {
 
       [theme.breakpoints.up('sm')]: {
         fontSize: '1rem',
-        padding: '3rem',
+        padding: '2rem',
       },
     },
 
@@ -52,7 +52,7 @@ const Programs = () => {
   return (
     <div className={classes.programsContainer}>
       <span className={classes.title}>
-        Please select one of the goverment programs you are enrolled in below.
+        Please select one of the government programs you are enrolled in below.
       </span>
 
       {programs.map((program, index) => {
