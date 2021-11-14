@@ -1,7 +1,7 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { FormContext } from './Form';
 import { addressValidation } from './Validation';
-
+import { usePlacesWidget } from 'react-google-autocomplete';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import {
   MenuItem,
@@ -11,6 +11,7 @@ import {
   Checkbox,
   Button,
 } from '@material-ui/core';
+import classNames from 'classnames';
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -29,6 +30,9 @@ const useStyles = makeStyles((theme) => {
       width: '10rem',
       margin: '1rem',
     },
+    noShippingInput: {
+      display: 'none',
+    },
   };
 });
 
@@ -42,9 +46,32 @@ const PurpleCheckBox = withStyles({
 })((props) => <Checkbox color="default" {...props} />);
 
 const Address = () => {
-  const { handleChange, values, step, setStep } = useContext(FormContext);
+  const { handleChange, values, step, setStep, setValues, shipping } =
+    useContext(FormContext);
+  const [autoVal, setAutoVal] = useState('');
   const [errors, setErrors] = useState({});
 
+  const { ref: residenceRef, autocompleteRef } = usePlacesWidget({
+    apiKey: 'AIzaSyAga34fRWQEuoWl8cNHnQj0maNWUCO7k50',
+    inputAutoCompleteValue: autoVal,
+    onPlaceSelected: (place) => setAutoVal(place),
+    options: {
+      types: ['address'],
+      componentRestrictions: { country: 'us' },
+    },
+  });
+
+  const { ref: shippingRef } = usePlacesWidget({
+    apiKey: 'AIzaSyAga34fRWQEuoWl8cNHnQj0maNWUCO7k50',
+    onPlaceSelected: (place) =>
+      setValues({ ...values, shipping_address: place.formatted_address }),
+    options: {
+      types: ['address'],
+      componentRestrictions: { country: 'us' },
+    },
+  });
+
+  useEffect(() => {}, [values]);
   const classes = useStyles();
 
   const prevStep = (e) => {
@@ -54,12 +81,10 @@ const Address = () => {
   };
 
   const handleSubmit = (e) => {
-    const errors = addressValidation(values);
-    setErrors(errors);
-
-    if (Object.keys(errors).length > 0) return;
-
-    alert(values);
+    // const errors = addressValidation(values);
+    // setErrors(errors);
+    // // if (Object.keys(errors).length > 0) return;
+    // alert(values);
   };
 
   // const sendPostValues = () => {
@@ -79,15 +104,16 @@ const Address = () => {
   //       setStep(5);
   //     });
   // };
-
   return (
     <div>
       <TextField
-        onChange={handleChange('residence_address')}
+        // onChange={handleChange('residence_address')}
         // required
         fullWidth
+        {...autocompleteRef}
         id="outlined-required"
         variant="outlined"
+        inputRef={residenceRef}
         label="Residence Address"
         placeholder="Enter a location"
         className={classes.inputItem}
@@ -107,8 +133,8 @@ const Address = () => {
         select
         id="outlined"
         variant="outlined"
-        label="Suffix"
-        placeholder="Permanent or temporary"
+        label="Perm"
+        // placeholder="Permanent or temporary"
         className={classes.inputItem}
         defaultValue={'Permanent'}
         onChange={handleChange('permanence')}
@@ -116,7 +142,7 @@ const Address = () => {
       >
         {/* TODO: Default value */}
         <MenuItem value={'permanent'}>Permanent</MenuItem>
-        <MenuItem>Temporary</MenuItem>
+        <MenuItem value={'temporary'}>Temporary</MenuItem>
       </TextField>
 
       {/* TODO: figure out margin issue */}
@@ -125,43 +151,46 @@ const Address = () => {
           control={
             <PurpleCheckBox
               onChange={handleChange('shipping')}
-              checked={values.shipping}
+              checked={shipping}
             />
           }
           label="I have a different shipping address"
         />
       </FormGroup>
 
-      {values.shipping && (
-        <>
-          <TextField
-            className={classes.inputItem}
-            id="outlined"
-            variant="outlined"
-            placeholder="Shipping Address"
-            onChange={handleChange('shipping_address')}
-            value={values.shipping_address}
-          />
+      <div className={classNames({ [classes.noShippingInput]: !shipping })}>
+        <TextField
+          // onChange={handleChange('shipping_address')}
+          autoComplete="false"
+          // required
+          fullWidth
+          id="outlined-required"
+          variant="outlined"
+          inputRef={shippingRef}
+          label="Residence Address"
+          placeholder="Enter a location"
+          className={classes.inputItem}
+          value={values.shipping_address}
+        />
 
-          <TextField
-            className={classes.inputItem}
-            id="outlined"
-            variant="outlined"
-            placeholder="Apt, unit, or lot #"
-            onChange={handleChange('ship_apt')}
-            value={values.ship_apt}
-          />
+        <TextField
+          className={classes.inputItem}
+          id="outlined"
+          variant="outlined"
+          placeholder="Apt, unit, or lot #"
+          onChange={handleChange('ship_apt')}
+          value={values.ship_apt}
+        />
 
-          <TextField
-            className={classes.inputItem}
-            id="outlined"
-            variant="outlined"
-            placeholder="Zip"
-            onChange={handleChange('ship_zipcode')}
-            value={values.ship_zipcode}
-          />
-        </>
-      )}
+        <TextField
+          className={classes.inputItem}
+          id="outlined"
+          variant="outlined"
+          placeholder="Zip"
+          onChange={handleChange('ship_zipcode')}
+          value={values.ship_zipcode}
+        />
+      </div>
 
       {/* Buttons */}
       <div>

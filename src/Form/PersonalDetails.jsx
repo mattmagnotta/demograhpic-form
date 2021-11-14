@@ -35,7 +35,7 @@ const PersonalDetails = () => {
     const errors = personDetailsValidation(values);
     setErrors(errors);
 
-    if (Object.keys(errors).length > 0) return;
+    // if (Object.keys(errors).length > 0) return;
     setStep(step + 1);
   };
 

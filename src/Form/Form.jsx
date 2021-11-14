@@ -60,8 +60,9 @@ export const Form = () => {
 
   // step 4 & 5 are reserved for the error and success page
   // if step is set to either, it will render that page.
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(3);
   const [programs, setPrograms] = useState([]);
+  const [shipping, setShipping] = useState(true);
   const [values, setValues] = useState({
     first_name: '',
     middle_name: '',
@@ -73,12 +74,15 @@ export const Form = () => {
     residence_address: '',
     res_apt: '',
     permanence: 'Permanent',
-    shipping: false,
     shipping_address: '',
     ship_apt: '',
     ship_zipcode: null, // type <number>, issue with place holder displaying 0 instead of 'zip'
     selected_plan: '',
   });
+
+  useEffect(() => {
+    console.log(values);
+  }, [values]);
 
   const logo =
     'https://wia.toj.mybluehost.me/disclosureswp/wp-content/uploads/2021/07/image-3.png';
@@ -106,9 +110,13 @@ export const Form = () => {
   // It updates the state object with the name passed as an
   // parameter, as a key, and the input value for that element as the value.
   const handleChange = (name) => (e) => {
-    const target = name === 'shipping' ? !values.shipping : e.target.value;
-
-    setValues({ ...values, [name]: target });
+    // const target = name === 'shipping' ? !values.shipping : e.target.value;
+    console.log(name);
+    if (name === 'shipping') {
+      setShipping(!shipping);
+    } else {
+      setValues({ ...values, [name]: e.target.value });
+    }
   };
 
   // should be moved to <Address/> when address validation is created
@@ -164,6 +172,8 @@ export const Form = () => {
           values,
           step,
           programs,
+          shipping,
+          setShipping,
           setValues,
           setStep,
           handleChange,
